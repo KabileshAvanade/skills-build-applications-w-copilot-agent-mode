@@ -32,7 +32,7 @@ Record your plan here before editing code.
 
 - Presentation tier decision:
 - Logic tier decision:
-- Data tier decision:
+- Data tier decision: Enforce required fields in Mongoose schemas while preserving existing references, default empty team members, and idempotent seed behavior. Validate with the data contract tests and backend build before changing API behavior.
 - Activity tracking approach:
 - Team management approach:
 - Leaderboard approach:
@@ -47,3 +47,9 @@ Record the commands you run and what each failure means.
 - Frontend command: `npm test --prefix octofit-tracker/frontend`
 - Backend build command: `npm run build --prefix octofit-tracker/backend`
 - Frontend build command: `npm run build --prefix octofit-tracker/frontend`
+
+### Data-tier validation results
+
+- Initial data test run: 4 failed, 1 passed. User, Team, Activity, and Workout schemas did not reject missing required fields; the seed contract passed.
+- After adding required-field validation, `npm run test:data --prefix octofit-tracker/backend`: all 5 tests passed, including the idempotent, non-destructive seed contract.
+- `npm run build --prefix octofit-tracker/backend`: passed with no TypeScript errors.
